@@ -6,6 +6,16 @@
         update_cache: yes
         cache_valid_time: 3600
 
+    - name: "Install Python pip"
+      apt:
+        name: [python3-pip]
+        state: latest
+
+    - name: "Make sure pymysql is present"
+      pip:
+        name: pymysql
+        state: present
+
     - name: "install Mysql"
       apt:
         name: [python-mysqldb, mysql-server, mysql-client]
