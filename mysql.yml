@@ -10,6 +10,10 @@
     apt:
       name: [python3-pip]
       state: latest
+  - name: "Make sure pymysql is present"
+    pip:
+      name: pymysql
+      state: present
 
   - name: "Install Mysql"
     apt:
