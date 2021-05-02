@@ -1,7 +1,5 @@
-- hosts: staging_mysql
-  user: ec2-user
-  sudo: yes
-
+- hosts: db
+  become: yes
   tasks:
     - name: "apt-get update"
       apt:
