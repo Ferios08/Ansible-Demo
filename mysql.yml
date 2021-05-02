@@ -13,11 +13,11 @@
 
   - name: Install MySQL
     apt: name={{ item }} update_cache=yes cache_valid_time=3600 state=present
-    sudo: yes
-    with_items:
-    - python-mysqldb
-    - mysql-server
-    - mysql-client
+      sudo: yes
+      with_items:
+        - python-mysqldb
+        - mysql-server
+        - mysql-client
 
   #- name: copy cnf
   #  copy: src=.my.cnf dest=~/.my.cnf owner=ubuntu mode=0644
