@@ -5,11 +5,19 @@
     apt:
       update_cache: yes
       cache_valid_time: 3600
+    when: ansible_os_family == "Debian"
 
-  - name: "install nginx"
+  - name: "install nginx Ubuntu"
+    yum:
+      name: ['nginx']
+      state: latest
+    when: ansible_os_family == "Debian"
+    
+  - name: "install nginx CentOS"
     apt:
       name: ['nginx']
       state: latest
+    when: ansible_os_family in ["CentOS","RedHat"]
 
   - name: "create www directory"
     file:

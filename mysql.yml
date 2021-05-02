@@ -1,28 +1,56 @@
 - hosts: db
   become: yes
   tasks:
-  - name: "apt-get update"
+  - name: "apt-get update UBUNTU"
     apt:
       update_cache: yes
       cache_valid_time: 3600
+    when: ansible_os_family == "Debian"
 
-  - name: "Install Python pip"
+  - name: "Install Python pip UBUNTU"
     apt:
       name: [python3-pip]
       state: latest
+    when: ansible_os_family == "Debian"
+    
+  - name: Add the EPEL Repository CentOS
+    yum:
+      name: [epel-release]
+      state: present
+    when: ansible_os_family in ["CentOS","RedHat"]
+
+  - name: Install Python dependencies CentOS
+    yum:
+      name: [python3-pip, python3-devel]
+      state: latest
+   when: ansible_os_family in ["CentOS","RedHat"]
+
+
   - name: "Make sure pymysql is present"
     pip:
       name: pymysql
       state: present
 
-  - name: "Install Mysql"
+  - name: "Install Mysql UBUNTU"
     apt:
       name: [python-mysqldb, mysql-server, mysql-client]
       state: latest
+    when: ansible_os_family == "Debian"
+
+  - name: "Install Mysql UBUNTU CentOS"
+    yum:
+      name: [python-mysqldb, mysql-server, mysql-client]
+      state: latest
+   when: ansible_os_family in ["CentOS","RedHat"]
 
 
-  - name: Start the MySQL service
+  - name: Start the MySQL service UBUNTU
     action: service name=mysql state=started
+    when: ansible_os_family == "Debian"
+
+  - name: Start the MySQL service CentOS
+    action: service name=mysqld state=started
+    when: ansible_os_family in ["CentOS","RedHat"]
 
   - name: Sets the root password
     mysql_user:
