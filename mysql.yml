@@ -20,11 +20,10 @@
       apt:
         name: [python-mysqldb, mysql-server, mysql-client]
         state: latest
+
     - name: Start the MySQL service
       action: service name=mysql state=started
  
-    
-        
     - name: Create deploy user for Mysql
       mysql_user: user="firas" host="%" password={{mysql_root_password}} priv=*.*:ALL,GRANT
     
@@ -38,7 +37,6 @@
         - 127.0.0.1
         - ::1
         - localhost
-
 
     - name: delete anonymous MySQL server user for $server_hostname
       action: mysql_user user="" host="{{ server_hostname }}" state="absent"
