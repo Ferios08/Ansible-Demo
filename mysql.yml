@@ -12,9 +12,9 @@
       state: latest
 
   - name: "Install Mysql"
-      apt:
-        name: [python-mysqldb, mysql-server, mysql-client]
-        state: latest²
+    apt:
+      name: [python-mysqldb, mysql-server, mysql-client]
+      state: latest²
 
   #- name: copy cnf
   #  copy: src=.my.cnf dest=~/.my.cnf owner=ubuntu mode=0644
