@@ -23,7 +23,7 @@
     yum:
       name: [python3-pip, python3-devel]
       state: latest
-   when: ansible_os_family in ["CentOS","RedHat"]
+    when: ansible_os_family in ["CentOS","RedHat"]
 
 
   - name: "Make sure pymysql is present"
@@ -41,7 +41,7 @@
     yum:
       name: [python-mysqldb, mysql-server, mysql-client]
       state: latest
-   when: ansible_os_family in ["CentOS","RedHat"]
+    when: ansible_os_family in ["CentOS","RedHat"]
 
 
   - name: Start the MySQL service UBUNTU
