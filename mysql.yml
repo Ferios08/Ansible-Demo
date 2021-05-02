@@ -8,12 +8,9 @@
 
     - name: "install Mysql"
       apt:
-        name: ['{{ item }}']
+        name: [python-mysqldb, mysql-server, mysql-client]
         state: latest
-        with_items:
-        - python-mysqldb
-        - mysql
-        - mysql-server
+
         
 
     - name: Start the MySQL service
