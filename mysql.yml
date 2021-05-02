@@ -21,11 +21,7 @@
   #  sudo: yes
 
   - name: Start the MySQL service
-    sudo: yes
-    service: 
-      name: mysql 
-      state: started
-      enabled: true
+    action: service name=mysql state=started
 
   - name: update mysql root password for all root accounts
     sudo: yes
