@@ -3,12 +3,20 @@
   sudo: yes
 
   tasks:
-    - name: Install MySQL
-      action: yum name={{ item }}
-      with_items:
-        - MySQL-python
+    - name: "apt-get update"
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: "install Mysql"
+      apt:
+        name: ['{{ item }}']
+        state: latest
+        with_items:
+        - python-mysqldb
         - mysql
         - mysql-server
+        
 
     - name: Start the MySQL service
       action: service name=mysqld state=started
