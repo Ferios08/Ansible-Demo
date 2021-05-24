@@ -33,13 +33,13 @@
 
   - name: "Install Mysql UBUNTU"
     apt:
-      name: [python-mysqldb, mysql-server, mysql-client]
+      name: [python3-mysqldb, mysql-server, mysql-client]
       state: latest
     when: ansible_os_family == "Debian"
 
   - name: "Install Mysql UBUNTU CentOS"
     yum:
-      name: [python-mysqldb, mysql-server, mysql-client]
+      name: [python3-mysqldb, mysql-server, mysql-client]
       state: latest
     when: ansible_os_family in ["CentOS","RedHat"]
 
