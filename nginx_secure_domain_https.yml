@@ -74,5 +74,5 @@
       cron:
         name: letsencrypt_renewal
         special_time: weekly
-        job: letsencrypt --renew certonly -n --webroot -w /var/www/letsencrypt -m {{ letsencrypt_email }} --agree-tos {{ all_domain_names | map('regex_replace', '^(.*)$', '-d \\1') | join(' ')}} && service nginx reload
+        job: letsencrypt certonly -n --webroot -w /var/www/letsencrypt -m {{ letsencrypt_email }} --agree-tos-d {{ domain }} && service nginx reload
     
