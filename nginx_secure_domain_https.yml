@@ -42,7 +42,7 @@
         state: restarted
     
     - name: Create letsencrypt certificate
-      shell: letsencrypt certonly -n --webroot -w /var/www/letsencrypt -m {{ letsencrypt_email }} --agree-tos {{ domain }}
+      shell: letsencrypt certonly -n --webroot -w /var/www/letsencrypt -m {{ letsencrypt_email }} --agree-tos -d {{ domain }}
       args:
         creates: /etc/letsencrypt/live/{{ domain }}
     
