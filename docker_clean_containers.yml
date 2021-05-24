@@ -1,0 +1,19 @@
+# https://docs.ansible.com/ansible/2.5/modules/docker_container_module.html
+---
+- hosts: web
+  become: true
+  vars:
+    default_container_name: web
+
+  tasks:
+
+  - name: Stop containers
+    docker_container: 
+      name: "{{ default_container_name }}"
+      state: stopped
+
+  - name: remove containers
+    docker_container: 
+      name: "{{ default_container_name }}"
+      state: absent
+      force_kill: yes
