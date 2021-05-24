@@ -8,13 +8,13 @@
     when: ansible_os_family == "Debian"
 
   - name: "install nginx Ubuntu"
-    yum:
+    apt:
       name: ['nginx']
       state: latest
     when: ansible_os_family == "Debian"
 
   - name: "install nginx CentOS"
-    apt:
+    yum:
       name: ['nginx']
       state: latest
     when: ansible_os_family in ["CentOS","RedHat"]
