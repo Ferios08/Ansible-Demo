@@ -45,7 +45,7 @@
         job: letsencrypt certonly -n --webroot -w /var/www/letsencrypt -m {{ letsencrypt_email }} --agree-tos-d {{ domain }} && service nginx reload
     
     handlers:
-    - name: restart nginx
-      service:
-        name: nginx
-        state: restarted
+      - name: restart nginx
+        service:
+          name: nginx
+          state: restarted
