@@ -50,7 +50,7 @@ web:
 
 db:
   hosts:
-    web1:
+    db1:
       ansible_connection: ssh # can be local in case host is localhost
       ansible_host: 3.3.3.3
   
