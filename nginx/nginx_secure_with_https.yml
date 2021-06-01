@@ -7,9 +7,8 @@
   tasks:        
     - name: Install Python simplejson
       apt:
-        pkg: python-simplejson
+        name: python-simplejson
         state: present
-        update_cache: true
     
     - name: install letsencrypt
       apt:
@@ -38,16 +37,11 @@
     
     - name: Create letsencrypt certificate
       shell: letsencrypt certonly -n --webroot -w /var/www/letsencrypt -m {{ letsencrypt_email }} --agree-tos -d {{ domain }}
-      args:
-        creates: /etc/letsencrypt/live/{{ domain }}
-    
+
     - name: Generate dhparams
       shell: openssl dhparam -out /etc/nginx/dhparams.pem 2048
-      args:
-        creates: /etc/nginx/dhparams.pem
-    
+
     - name: Add empty data directory for {{ domain }} static files at /var/www/{{ domain }}
-      become: true
       file:
         path: "/var/www/{{ domain }}"
         state: directory
