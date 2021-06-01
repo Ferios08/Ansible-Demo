@@ -25,12 +25,12 @@
       file:
         name: /etc/nginx/sites-enabled/default
         state: absent
-    
-    - name: Install system nginx config
-      template:
-        src: templates/nginx.conf.j2
-        dest: /etc/nginx/nginx.conf
-    
+#    
+#    - name: Install system nginx config
+#      template:
+#        src: templates/nginx.conf.j2
+#        dest: /etc/nginx/nginx.conf
+#    
     - name: Install nginx site for letsencrypt requests
       template:
         src: templates/nginx-http.j2
@@ -62,7 +62,7 @@
     
     - name: Install nginx site for {{ domain }}
       template:
-        src: templates/nginx-le.j2
+        src: templates/site-secured.j2
         dest: /etc/nginx/sites-enabled/{{ domain }}
     
     - name: Reload nginx to activate specified site
