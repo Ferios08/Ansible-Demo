@@ -9,13 +9,13 @@
 
   - name: "Install nginx Ubuntu"
     apt:
-      name: ['nginx']
+      name: nginx
       state: latest
     when: ansible_os_family == "Debian"
 
   - name: "Install nginx CentOS"
     yum:
-      name: ['nginx']
+      name: nginx
       state: latest
     when: ansible_os_family in ["CentOS","RedHat"]
 
