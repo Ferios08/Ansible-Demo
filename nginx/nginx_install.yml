@@ -7,19 +7,19 @@
       cache_valid_time: 3600
     when: ansible_os_family == "Debian"
 
-  - name: "install nginx Ubuntu"
+  - name: "Install nginx Ubuntu"
     apt:
       name: ['nginx']
       state: latest
     when: ansible_os_family == "Debian"
 
-  - name: "install nginx CentOS"
+  - name: "Install nginx CentOS"
     yum:
       name: ['nginx']
       state: latest
     when: ansible_os_family in ["CentOS","RedHat"]
 
-  - name: "create www directory"
+  - name: "Create www directory"
     file:
       path: /var/www/{{ domain }}
       state: directory
@@ -27,13 +27,13 @@
       owner: "{{ ansible_user }}"
       group: "{{ ansible_user }}"
 
-  - name: delete default nginx site
+  - name: Delete default nginx conf file
     file:
       path: /etc/nginx/sites-enabled/default
       state: absent
     notify: restart nginx
 
-  - name: copy nginx site.conf
+  - name: Copy nginx custom conf file
     template:
       src: templates/site-not-secure.conf.j2
       dest: /etc/nginx/sites-enabled/{{ domain }}
@@ -42,7 +42,7 @@
       mode: '0644'
     notify: restart nginx
 
-  - name: "sync website"
+  - name: Add website source code
     synchronize:
       src: site/
       dest: /var/www/{{ domain }}

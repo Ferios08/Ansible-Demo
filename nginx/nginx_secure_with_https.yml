@@ -10,22 +10,17 @@
         name: python-simplejson
         state: present
     
-    - name: install letsencrypt
+    - name: Install letsencrypt
       apt:
         name: letsencrypt
         state: latest
     
-    - name: create letsencrypt directory
+    - name: Create letsencrypt directory
       file:
         name: /var/www/letsencrypt
         state: directory
     
-    - name: Remove default nginx config
-      file:
-        name: /etc/nginx/sites-enabled/default
-        state: absent
- 
-    - name: Install nginx site for letsencrypt requests
+    - name: Install nginx config for letsencrypt requests
       template:
         src: templates/nginx-http.j2
         dest: /etc/nginx/sites-enabled/http
@@ -40,14 +35,6 @@
 
     - name: Generate dhparams
       shell: openssl dhparam -out /etc/nginx/dhparams.pem 2048
-
-    - name: Add empty data directory for {{ domain }} static files at /var/www/{{ domain }}
-      file:
-        path: "/var/www/{{ domain }}"
-        state: directory
-        mode: u=rwx,g=r,o=r
-        owner: www-data
-        group: www-data
     
     - name: Install nginx site for {{ domain }}
       template:
