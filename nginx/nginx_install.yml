@@ -42,6 +42,16 @@
       mode: '0644'
     notify: restart nginx
 
+  - name: "sync website"
+    synchronize:
+      src: site/
+      dest: /var/www/{{ domain }}
+      archive: no
+      checksum: yes
+      recursive: yes
+      delete: yes
+    notify: restart nginx
+
   handlers:
     - name: restart nginx
       service:
