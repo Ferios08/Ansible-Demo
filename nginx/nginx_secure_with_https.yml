@@ -24,8 +24,12 @@
       template:
         src: templates/nginx-http.j2
         dest: /etc/nginx/sites-enabled/http
-      notify: restart nginx
-      
+    
+    - name: Reload nginx to activate letsencrypt site
+      service:
+        name: nginx
+        state: restarted
+    
     - name: Create letsencrypt certificate
       shell: letsencrypt certonly -n --webroot -w /var/www/letsencrypt -m {{ letsencrypt_email }} --agree-tos -d {{ domain }}
 
@@ -36,7 +40,11 @@
       template:
         src: templates/site-secured.j2
         dest: /etc/nginx/sites-enabled/{{ domain }}
-      notify: restart nginx
+    
+    - name: Reload nginx to activate specified site
+      service:
+        name: nginx
+        state: restarted
     
     - name: Add letsencrypt cronjob for cert renewal
       cron:
@@ -44,8 +52,3 @@
         special_time: weekly
         job: letsencrypt certonly -n --webroot -w /var/www/letsencrypt -m {{ letsencrypt_email }} --agree-tos-d {{ domain }} && service nginx reload
     
-    handlers:
-      - name: restart nginx
-        service:
-          name: nginx
-          state: restarted
